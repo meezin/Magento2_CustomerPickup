@@ -1,0 +1,28 @@
+<?php
+/** @var Bodak\CheckoutCustomForm\Block\Order\CustomFields $block */
+
+/** @var Bodak\CheckoutCustomForm\Model\Data\CustomFields $customFields */
+$customFields = $block->getCustomFields($block->getOrder());
+?>
+<?php if($customFields): ?>
+    <div class="block block-order-details-view">
+        <div class="block-content">
+            <div class="box">
+                <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Detail For Pickup') ?></span></strong>
+                <div class="box-content">
+                    <strong><?php /* @escapeNotVerified */ echo __('Pickup Store') ?>:</strong>
+                    <?php echo $this->escapeHtml($customFields->getPickupStore()); ?><br>
+                    <strong><?php /* @escapeNotVerified */ echo __('Pickup Date') ?>:</strong>
+                    <?php echo $this->escapeHtml($customFields->getPickupDate()); ?><br>
+                </div>
+            </div>
+
+            <div class="box">
+                <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Comment') ?></span></strong>
+                <div class="box-content">
+                    <?php echo nl2br($this->escapeHtml($customFields->getPickupComment())); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

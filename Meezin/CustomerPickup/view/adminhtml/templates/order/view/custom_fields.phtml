@@ -1,0 +1,38 @@
+<?php
+/** @var Magento\Backend\Block\Template $block */
+
+/** @var Bodak\CheckoutCustomForm\Model\Data\CustomFields $customFields */
+$customFields = $block->getOrderCustomFields();
+?>
+<?php if($customFields): ?>
+    <section class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?php /* @escapeNotVerified */ echo __('Detail For Pickup') ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="order-information">
+                <div class="box">
+                    <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Pickup Store') ?></span></strong>
+                    <div class="box-content">
+                        <?php echo $this->escapeHtml($customFields->getPickupStore()); ?>
+                    </div>
+                </div>
+                <div class="box">
+                    <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Pickup Date') ?></span></strong>
+                    <div class="box-content">
+                        <?php echo $this->escapeHtml($customFields->getPickupDate()); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-information">
+                <div class="box">
+                    <strong class="box-title"><span><?php /* @escapeNotVerified */ echo __('Comment') ?></span></strong>
+                    <div class="box-content">
+                        <?php echo nl2br($this->escapeHtml($customFields->getPickupComment())); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>

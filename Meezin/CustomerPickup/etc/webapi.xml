@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/carts/mine/set-order-custom-fields" method="PUT">
+        <service class="Meezin\CustomerPickup\Api\CustomFieldsRepositoryInterface" method="saveCustomFields"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/guest-carts/:cartId/set-order-custom-field" method="PUT">
+        <service class="Meezin\CustomerPickup\Api\CustomFieldsGuestRepositoryInterface" method="saveCustomFields"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

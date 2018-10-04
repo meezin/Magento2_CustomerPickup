@@ -1,0 +1,117 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <!-- this is for new step -->
+                        <item name="components" xsi:type="array">
+                            <item name="checkout" xsi:type="array">
+                                <item name="children" xsi:type="array">
+                                    <item name="steps" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+                                            <!-- The new step you add -->
+                                            <item name="check-pickup-step" xsi:type="array">
+                                                <item name="component" xsi:type="string">Meezin_CustomerPickup/js/view/checkout-pickup-step</item>
+                                                    <!--To display step content before shipping step "sortOrder" value should be < 1-->
+                                                    <!--To display step content between shipping step and payment step  1 < "sortOrder" < 2 -->
+                                                    <!--To display step content after payment step "sortOrder" > 2 -->
+                                                <item name="sortOrder" xsi:type="string">2</item>
+                                                <item name="children" xsi:type="array">
+                                                    <!--add here child component declaration for your step-->
+                                                    <!--start of custom form-->
+                                            <item name="custom-checkout-form-container" xsi:type="array">
+                                                <item name="component" xsi:type="string">Meezin_CustomerPickup/js/view/custom-checkout-form</item>
+                                                <item name="displayArea" xsi:type="string">custom-checkout-form-container</item>
+                                                <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Meezin_CustomerPickup/custom-checkout-form</item>
+                                                </item>
+
+                                                <item name="children" xsi:type="array">
+                                                    <item name="custom-checkout-form-fieldset" xsi:type="array">
+                                                        <!-- uiComponent is used as a wrapper for form fields (its template will render all children as a list) -->
+                                                        <item name="component" xsi:type="string">uiComponent</item>
+                                                        <!-- the following display area is used in template (see below) -->
+                                                        <item name="displayArea" xsi:type="string">custom-checkout-form-fields</item>
+                                                        <item name="children" xsi:type="array">
+                                                            <!-- start select store -->
+                                                            <item name="pickup_store" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                                                                <item name="config" xsi:type="array">
+                                                                    <!--customScope is used to group elements within a single form (e.g. they can be validated separately)-->
+                                                                    <item name="customScope" xsi:type="string">customCheckoutForm</item>
+                                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                                                                </item>
+                                                                <item name="options" xsi:type="array">
+                                                                    <item name="0" xsi:type="array">
+                                                                        <item name="label" xsi:type="string">Please select pick-up store</item>
+                                                                        <item name="value" xsi:type="string"></item>
+                                                                    </item>
+                                                                    <item name="1" xsi:type="array">
+                                                                        <item name="label" xsi:type="string">New York Store</item>
+                                                                        <item name="value" xsi:type="string">ny</item>
+                                                                    </item>
+                                                                    <item name="2" xsi:type="array">
+                                                                        <item name="label" xsi:type="string">New Jersey Store</item>
+                                                                        <item name="value" xsi:type="string">nj</item>
+                                                                    </item>
+                                                                </item>
+                                                                <!-- value element allows to specify default value of the form field -->
+                                                                <item name="value" xsi:type="string">ny</item>
+                                                                <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                <item name="dataScope" xsi:type="string">customCheckoutForm.pickup_store</item>
+                                                                <item name="label" xsi:type="string">Select Pickup Store</item>
+                                                                <item name="sortOrder" xsi:type="string">1</item>
+                                                            </item>
+                                                            <!-- end select store -->    
+                                                            <!-- start pick up date -->
+                                                            <item name="pickup_date" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/date</item>
+                                                                <item name="config" xsi:type="array">
+                                                                    <!--customScope is used to group elements within a single form (e.g. they can be validated separately)-->
+                                                                    <item name="customScope" xsi:type="string">customCheckoutForm</item>
+                                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                                    <item name="elementTmpl" xsi:type="string">ui/form/element/date</item>
+                                                                </item>
+                                                                <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                <item name="dataScope" xsi:type="string">customCheckoutForm.pickup_date</item>
+                                                                <item name="label" xsi:type="string">Pick Up Date</item>
+                                                                <item name="sortOrder" xsi:type="string">2</item>
+                                                            </item>
+                                                            <!-- end pick up date -->    
+                                                            <!-- start add comment for pick up -->
+                                                            <item name="pickup_comment" xsi:type="array">
+                                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="customScope" xsi:type="string">customCheckoutForm</item>
+                                                                        <item name="template" xsi:type="string">ui/form/field</item>
+                                                                        <item name="elementTmpl" xsi:type="string">ui/form/element/textarea</item>
+                                                                        <item name="cols" xsi:type="string">15</item>
+                                                                        <item name="rows" xsi:type="string">2</item>
+                                                                    </item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                        <item name="dataScope" xsi:type="string">customCheckoutForm.pickup_comment</item>
+                                                                        <item name="label" xsi:type="string">Add Comment</item>
+                                                                        <item name="sortOrder" xsi:type="string">3</item>
+                                                            </item>
+                                                            <!-- end add comment for pick up -->    
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+
+                                         <!--end of custom form-->
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                        <!-- this is for new step -->
+                    </argument>
+                </arguments>
+        </referenceBlock>
+    </body>
+</page>
